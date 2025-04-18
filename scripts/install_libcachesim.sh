@@ -9,6 +9,6 @@ cd ${DIR}/../;
 mkdir _build || true 2>/dev/null;
 cd _build;
 cmake ..;
-make -j;
+make;
 cd ${DIR}; 
 

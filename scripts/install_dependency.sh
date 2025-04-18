@@ -8,6 +8,7 @@ setup_ubuntu() {
 	
 	sudo apt install -yqq libglib2.0-dev libunwind-dev
 	sudo apt install -yqq libgoogle-perftools-dev
+    sudo apt install -yqq cmake
 }
 
 setup_centos() {
@@ -42,7 +43,7 @@ install_xgboost() {
 	if [[ ${GITHUB_ACTIONS:-} == "true" ]]; then
 		make
 	else
-		make -j $(nproc)
+		make
 	fi
 	sudo make install
 }
@@ -59,7 +60,7 @@ install_lightgbm() {
 	if [[ ${GITHUB_ACTIONS:-} == "true" ]]; then
 		make
 	else
-		make -j $(nproc)
+		make
 	fi
 	sudo make install
 }
@@ -74,7 +75,7 @@ install_zstd() {
     mkdir _build || true
     pushd _build/;
     cmake ..
-    make -j $(nproc)
+    make
     sudo make install
 }
 
@@ -88,12 +89,12 @@ else
     setup_centos
 fi 
 
-install_cmake
+# install_cmake
 install_zstd
 
-if [[ ! ${GITHUB_ACTIONS:-} == "true" ]]; then
-	install_xgboost
-	install_lightgbm
-fi
+# if [[ ! ${GITHUB_ACTIONS:-} == "true" ]]; then
+# 	install_xgboost
+# 	install_lightgbm
+# fi
 
 cd $CURR_DIR
